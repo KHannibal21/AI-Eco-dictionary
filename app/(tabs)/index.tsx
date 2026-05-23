@@ -105,7 +105,7 @@ export default function CameraScreen() {
 
       {/* Заголовок */}
       <View style={styles.header}>
-        <Text style={[styles.title, { color: colors.text }]}>AI Eco‑Lexicon</Text>
+        <Text style={[styles.title, { color: colors.text }]}>AI Eco-dictionary</Text>
         <Text style={[styles.subtitle, { color: colors.secondaryText }]}>
           Point camera at nature
         </Text>

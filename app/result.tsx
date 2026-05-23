@@ -61,7 +61,7 @@ export default function ResultScreen() {
         .map((t) => `• ${t.term}: ${t.description}`)
         .join('\n');
       
-      const message = `🌿 ${resultData.objectName}\n\n${resultData.definition}\n\nEcology Terms:\n${termsText}\n\n— AI Eco‑Lexicon`;
+      const message = `🌿 ${resultData.objectName}\n\n${resultData.definition}\n\nEcology Terms:\n${termsText}\n\n— AI Eco-dictionary`;
       
       await Share.share({
         message,

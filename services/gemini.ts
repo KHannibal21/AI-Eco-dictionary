@@ -6,9 +6,13 @@ const API_KEY = process.env.EXPO_PUBLIC_GEMINI_API_KEY;
 
 // Полный список моделей в порядке приоритета (от мощных к быстрым)
 const MODEL_PRIORITY = [
+  'gemini-2.5-flash',
+  'gemini-2.5-flash-image',
+  'gemini-3.1-flash-lite',
+  'gemini-3.1-flash-lite-preview',
+  'gemini-3-pro',
   'gemini-3.1-pro-preview',
   'gemini-3.1-pro',
-  'gemini-3-pro',
   'gemini-3-flash',
   'gemini-2.5-pro',
   'gemini-2.5-flash',
@@ -27,18 +31,18 @@ type GeminiModel = (typeof MODEL_PRIORITY)[number];
 const BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
 
 // Системный промпт – требует строгий JSON
-const PROMPT = `Act as an instant eco-translator tool. Identify the main natural object or environmental element in this image. Output must be valid JSON only, no extra text, following exactly this structure:
+const PROMPT = `Act as an eco‑translator tool. Analyze the image carefully. Identify the single most prominent object or material that is the main subject of the photo, whether it is natural (tree, river, flower) or human‑made (plastic chair, smoke, litter, pipe, car exhaust). If the object is human‑made, treat it as an environmental element (e.g., plastic chair → plastic pollution; smoke → air pollution). Output valid JSON only, no extra text, exactly following this structure:
 {
-  "objectName": "string (the English name of the main object, capitalized)",
-  "definition": "string (concise English definition, max 15 words)",
+  "objectName": "string (English name of the main object, capitalized)",
+  "definition": "string (concise English definition, max 15 words, include environmental relevance if man-made)",
   "ecoTerms": [
     {
-      "term": "string (relevant ecology term)",
+      "term": "string (ecology term tightly related to the object)",
       "description": "string (short environmental context, max 20 words)"
     }
   ]
 }
-Provide at least 1 and at most 3 ecology terms.`;
+Provide at least 1 and at most 3 ecology terms. Never return commentary outside the JSON.`;
 
 interface GeminiApiResponse {
   candidates?: Array<{
